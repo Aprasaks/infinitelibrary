@@ -1,32 +1,20 @@
-// src/components/LibraryScene.jsx
-'use client';
+// src/app/page.js
+"use client"
 
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import SearchBar from '../app/components/SearchBar';
+import LibraryScene from '../app/components/LibraryScene';
 
-function SpinningBox() {
-  const ref = useRef();
-  // 매 프레임마다 조금씩 회전
-  useFrame((state, delta) => {
-    ref.current.rotation.y += delta * 0.5;
-    ref.current.rotation.x += delta * 0.2;
-  });
+export default function Home() {
+  const handleSearch = (keyword) => {
+    console.log('검색어:', keyword);
+    // 나중에 API 호출 후 결과를 3D 씬에 반영할 로직을 여기에 작성합니다.
+  };
+
   return (
-    <mesh ref={ref} position={[0, 0, 0]}>
-      <boxGeometry args={[1, 1.5, 0.2]} />
-      <meshStandardMaterial color="white" />
-    </mesh>
-  );
-}
-
-export default function LibraryScene() {
-  return (
-    <div style={{ width: '100%', height: '400px' }}>
-      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <SpinningBox />
-      </Canvas>
-    </div>
+    <main className="bg-gray-900 min-h-screen text-white">
+      <h1 className="text-3xl font-bold p-4">Infinite Library</h1>
+      <SearchBar onSearch={handleSearch} />
+      <LibraryScene />
+    </main>
   );
 }
